@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
+#include <filesystem>
 
 
 using namespace std;
@@ -15,7 +15,8 @@ un stop controlado.
 */
 
 void mostrar_bienvenida(){
-    ifstream archivo("Intro.txt");
+    cout <<"ruta actual es: " << filesystem::current_path() << endl;
+    ifstream archivo("Intro.txt.txt");
 
     if (!archivo){
         cout << "No se pudo abrir el archivo" << endl;
@@ -60,33 +61,16 @@ unsigned char lugarficha(const unsigned char* espacio ,int indice, int totalByte
 }
 
 char crear_ficha(unsigned char opcion){
-    static const char tabla[]={X,O,W,K,B,C};
+    static const char tabla[]={'X','O','W','K','B'};
     const char *ptr = tabla;
 
-    if (opcion==X){
-        return *(ptr+0);
-
+    if (opcion < 5){
+        return *(ptr+opcion);
     }
-    else if(opcion==O){
-        return *(ptr+1);
-    }
-    else if(opcion==W){
-        return *(ptr+2);
-    }
-    else if(opcion==K){
-        return *(ptr+3);
-    }
-    else if(opcion==B){
-        return *(ptr+4);
-    }
-    else if(opcion==C){
-        return *(ptr+5);
-    }
-    else {
-        return *(ptr+6);
+    else{
+        return 'C';
     }
 }
-
 void ponerficha(unsigned char* espacio,int indice, unsigned char valor, int totalBytes){
     int bit_inicial = indice* 3;
     int byte_inicial =bit_inicial/8;
@@ -123,7 +107,7 @@ unsigned int aleatorio(){
 
 int numeros_aletorios(){
     int numero = aleatorio();
-        return (numero % 6);
+        return (numero % 5);
 
 
 }
@@ -148,10 +132,10 @@ void tablero(const unsigned char* espacio, int columnas,int filas, int totalbyte
             int indice= i*columnas+j;
             unsigned char valor = lugarficha(espacio, indice, totalbytes);
             char representacion= crear_ficha(valor);
-            cout <<representacion << " ";
+            cout <<representacion << '|';
         }
 
-        cout << endl << endl;
+        cout << endl;
     }
 }
 
