@@ -16,6 +16,7 @@ int main()
 
     informaciontablero(&filas,&columnas,&bytesreservados,&espacio);
     tablero(espacio,columnas,filas,bytesreservados);
+    ubicacion_fichas(filas,columnas);
 
     delete[]espacio;
 

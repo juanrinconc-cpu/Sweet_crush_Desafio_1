@@ -14,12 +14,12 @@ char crear_ficha(unsigned char valor);
 void mostrar_bienvenida();
 int bytes_a_usar(int columnas,int filas);
 unsigned char lugarficha(const unsigned char* espacio ,int indice, int totalBytes);
-unsigned char* creacion_tablero(int columnas, int filas);
 void ponerficha(unsigned char* espacio,int indice, unsigned char valor, int totalBytes);
 int numeros_aleatorios();
 unsigned int aleatorio();
 unsigned char* creacion_tablero(int columnas, int filas, int totalbytes);
 void tablero(const unsigned char* espacio, int columnas,int filas, int totalbytes);
 void informaciontablero(int* filas, int*columnas, int* bytesreservados, unsigned char ** espacio);
+void ubicacion_fichas(int filas, int columnas);
 
 #endif // CREACION_TABLERO_H

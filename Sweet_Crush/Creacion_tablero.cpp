@@ -171,10 +171,16 @@ void informaciontablero(int* filas, int*columnas, int* bytesreservados, unsigned
     *bytesreservados=bytes_a_usar(c,f);
     *espacio = creacion_tablero(c,f,*bytesreservados);
 
-
-
-
-
 }
 
+void ubicacion_fichas(int filas, int columnas){
+    for (int i = 1; i <=filas; ++i) {
+        for (int j = 1; j <= columnas; j++) {
+            cout << i << " " << j << '|';
+        }
+        cout<< endl;
+
+    }
+
+}
 
