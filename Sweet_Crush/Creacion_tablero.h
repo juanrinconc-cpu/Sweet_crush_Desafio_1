@@ -9,6 +9,7 @@ const unsigned char W =2;
 const unsigned char K =3;
 const unsigned char B =4;
 const unsigned char C =5;
+const unsigned char VACIO=6;
 char crear_ficha(unsigned char valor);
 void mostrar_bienvenida();
 int bytes_a_usar(int columnas,int filas);

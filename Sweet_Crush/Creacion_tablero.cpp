@@ -105,7 +105,7 @@ unsigned int aleatorio(){
 }
 
 
-int numeros_aletorios(){
+int numeros_aleatorios(){
     int numero = aleatorio();
         return (numero % 5);
 
@@ -120,7 +120,7 @@ unsigned char* creacion_tablero(int columnas, int filas, int totalbytes){
     }
     int posiciones= filas * columnas;
     for (int i=0; i< posiciones;i++){
-        unsigned char valor = (unsigned char)numeros_aletorios();
+        unsigned char valor = (unsigned char)numeros_aleatorios();
         ponerficha(espacio, i, valor, totalbytes);
     }
     return espacio;
