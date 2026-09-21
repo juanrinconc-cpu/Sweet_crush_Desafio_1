@@ -34,10 +34,8 @@ int main()
 
 
                 int total_celdas = filas * columnas;
-                unsigned char* estado = new unsigned char[total_celdas];
-                for (int i = 0; i < total_celdas; i++) {
-                    estado[i] = 0;
-                }
+                unsigned char* estado = new unsigned char[total_celdas]();
+
 
                 tablero(espacio, columnas, filas, bytesreservados);
                 ubicacion_fichas(filas, columnas);
@@ -62,17 +60,17 @@ int main()
                     case 1:
                         eliminar_ficha(espacio, filas, columnas, bytesreservados, estado);
                         cont_movimientos=cont_movimientos+1;
-                        tablero(espacio,columnas,filas,bytesreservados);
+                        cout << endl << endl;
                         break;
                     case 2:
                         eliminarfila(espacio, &filas, columnas, bytesreservados);
                         eliminar_filas=eliminar_filas+1;
-                        tablero(espacio,columnas,filas,bytesreservados);
+                        cout << endl << endl;
                         break;
                     case 3:
                         eliminarcolumna(espacio, filas, &columnas, bytesreservados);
                         cont_eliminar_columnas=cont_eliminar_columnas+1;
-                        tablero(espacio,columnas,filas,bytesreservados);
+                        cout << endl << endl;
                         break;
                     }
 
@@ -84,8 +82,9 @@ int main()
 
                 delete[] espacio;
                 delete[] estado;
+                break;
+
             }
-            break;
 
         case 2:
             cout << "saliendo..." << endl;
