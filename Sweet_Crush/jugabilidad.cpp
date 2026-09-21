@@ -18,7 +18,7 @@ bool combinaciones(unsigned char* espacio, int filas, int columnas, int totalbyt
             unsigned char actual = lugarficha(espacio, i * columnas + j, totalbytes);
 
             if (actual == anterior) {
-                cont++;
+                cont=cont+1;
                 if (cont >= 3) {
                     for (int p = 0; p < cont; p++) {
                         estado[i * columnas + j - p] = 1;
@@ -59,8 +59,7 @@ bool combinaciones(unsigned char* espacio, int filas, int columnas, int totalbyt
 void rellenarespacios(unsigned char* espacio, int filas, int columnas, int totalbytes, unsigned char* estado) {
     for (int i = 0; i < filas * columnas; i++) {
         if (estado[i] == 1) {
-            unsigned char fichanueva = (unsigned char)numeros_aleatorios();
-            ponerficha(espacio, i, fichanueva, totalbytes);
+            ponerficha(espacio, i,VACIO, totalbytes);
         }
     }
 
@@ -86,26 +85,32 @@ void mover_abajo(unsigned char* espacio, int filas, int columnas, int totalbytes
         }
     }
 }
+void rellenar_superiores(unsigned char* espacio, int filas, int columnas, int totalbytes) {
+    for (int i = 0; i < filas * columnas; i++) {
+        if (lugarficha(espacio, i, totalbytes) == VACIO) {
+            unsigned char nueva = (unsigned char)numeros_aleatorios();
+            ponerficha(espacio, i, nueva, totalbytes);
+        }
+    }
+}
 
 int cascadas(unsigned char* espacio, int filas, int columnas, int totalbytes, int contador_cascadas, unsigned char* estado) {
     int contador = contador_cascadas;
     bool condicion = combinaciones(espacio, filas, columnas, totalbytes, estado);
 
     while (condicion) {
-        mover_abajo(espacio, filas, columnas, totalbytes);
         rellenarespacios(espacio, filas, columnas, totalbytes, estado);
+        mover_abajo(espacio, filas, columnas, totalbytes);
+        rellenar_superiores(espacio,filas,columnas,totalbytes);
         condicion = combinaciones(espacio, filas, columnas, totalbytes, estado);
 
         if (condicion) {
-            contador++;
-            mover_abajo(espacio, filas, columnas, totalbytes);
-            rellenarespacios(espacio, filas, columnas, totalbytes, estado);
-        } else {
-            tablero(espacio, columnas, filas, totalbytes);
+            contador=contador+1;
         }
     }
     return contador;
 }
+
 
 void eliminar_ficha(unsigned char* espacio, int filas, int columnas, int totalbytes, unsigned char* estado) {
     int fila, columna;
@@ -116,23 +121,12 @@ void eliminar_ficha(unsigned char* espacio, int filas, int columnas, int totalby
         cin >> columna;
     } while (fila <= 0 || fila > filas || columna <= 0 || columna > columnas);
 
-    fila--; columna--;
+    fila=fila-1;
+    columna=columna-1;
     int lugar = fila * columnas + columna;
 
     ponerficha(espacio, lugar, VACIO, totalbytes);
-
-    bool existen_combinaciones;
-    do {
-        mover_abajo(espacio, filas, columnas, totalbytes);
-        rellenarespacios(espacio, filas, columnas, totalbytes, estado);
-
-        existen_combinaciones = combinaciones(espacio, filas, columnas, totalbytes, estado);
-
-        if (existen_combinaciones) {
-            int cont_cascadas = 0;
-            cascadas(espacio, filas, columnas, totalbytes, cont_cascadas, estado);
-        }
-    } while (existen_combinaciones);
+    cascadas(espacio, filas, columnas, totalbytes, 0, estado);
 
     tablero(espacio, columnas, filas, totalbytes);
 }
